@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="true"
+         stopOnFailure="true"
+         syntaxCheck="false"
+>
+    <testsuites>
+        <testsuite name="Unicode-Normalization Stream-Filter Test Suite">
+            <directory>./tests/UnicodeNormalization/Tests/</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>
