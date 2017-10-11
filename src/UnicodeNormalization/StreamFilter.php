@@ -17,7 +17,7 @@ namespace Sjorek\UnicodeNormalization;
 class StreamFilter extends \php_user_filter
 {
     /**
-     * @var integer
+     * @var int
      */
     public $form;
 
@@ -31,7 +31,7 @@ class StreamFilter extends \php_user_filter
     {
         while ($bucket = stream_bucket_make_writeable($in)) {
             $payload = 0;
-            foreach(range(-1, -4) as $offset) {
+            foreach (range(-1, -4) as $offset) {
                 if (abs($offset) > $bucket->datalen) {
                     $offset = 0;
                     break;
@@ -43,24 +43,24 @@ class StreamFilter extends \php_user_filter
                     }
                     $payload = 0;
                     break;
-                } elseif(self::PAYLOAD > $input) {
+                } elseif (self::PAYLOAD > $input) {
                     if ($offset > -4) {
                         $payload += 1;
                         continue;
                     }
                     break;
-                } elseif(self::BYTES_2 > $input) {
+                } elseif (self::BYTES_2 > $input) {
                     if ($offset === -2 && $payload === 1) {
                         $offset = 0;
                     }
                     $payload = 0;
                     break;
-                } elseif(self::BYTES_3 > $input) {
+                } elseif (self::BYTES_3 > $input) {
                     if ($offset === -3 && $payload === 2) {
                         $offset = 0;
                     }
                     break;
-                } elseif(self::BYTES_4 > $input) {
+                } elseif (self::BYTES_4 > $input) {
                     if ($offset === -4 && $payload === 3) {
                         $offset = 0;
                     }
@@ -83,6 +83,7 @@ class StreamFilter extends \php_user_filter
         $filter = strtoupper($filter);
         if ($namespace === static::$namespace && in_array($filter, array('NONE', 'NFC', 'NFD', 'NFKC', 'NFKD'), true) && defined('Normalizer::' . $filter)) {
             $this->form = constant('Normalizer::' . $filter);
+
             return true;
         }
         /* Some other normalize.* filter was asked for,
