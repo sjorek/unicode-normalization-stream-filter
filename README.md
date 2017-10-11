@@ -2,7 +2,7 @@
 
 [![Dependency Status](https://gemnasium.com/badges/github.com/sjorek/unicode-normalization-stream-filter.svg)](https://gemnasium.com/github.com/sjorek/unicode-normalization-stream-filter)
 
-A [composer](http://getcomposer.org)-packe providing a unicode-normalization stream-filter
+A [composer](http://getcomposer.org)-package providing a unicode-normalization stream-filter.
 
 
 ## Installation
