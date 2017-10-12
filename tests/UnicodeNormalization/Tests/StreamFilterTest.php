@@ -195,10 +195,6 @@ class StreamFilterTest extends TestCase
 
     public function provideCheckParseNormalizationFormData()
     {
-        $this->markTestSkippedIfNormalizerIsNotAvailable();
-
-        $macIconvIsAvailable = $this->callProtectedMethod(StreamFilter::class, 'macIconvIsAvailable');
-
         $data = array();
         $matches = null;
 
@@ -209,10 +205,6 @@ class StreamFilterTest extends TestCase
         foreach ($matches as $match) {
             list(, $name, $form, $alternatives) = $match;
             $name = trim($name);
-
-            if ((int) $form === StreamFilter::NFD_MAC && !$macIconvIsAvailable) {
-                continue;
-            }
 
             $caption = sprintf('%s - parse as string \'%s\'', $name, $form);
             $data[$caption] = array((int) $form, (string) $form);
@@ -240,6 +232,11 @@ class StreamFilterTest extends TestCase
      */
     public function checkParseNormalizationForm($expected, $form)
     {
+        $this->markTestSkippedIfNormalizerIsNotAvailable();
+        if ((int) $form === StreamFilter::NFD_MAC) {
+            $this->markTestSkippedIfMacIconvIsNotAvailable();
+        }
+
         $filter = new StreamFilter();
         $this->assertSame($expected, $this->callProtectedMethod($filter, 'parseNormalizationForm', array($form)));
     }
@@ -498,6 +495,18 @@ class StreamFilterTest extends TestCase
     {
         if (!$this->callProtectedMethod(StreamFilter::class, 'normalizerIsAvailable')) {
             $this->markTestSkipped('Skipped test as "\Normalizer" class is not available.');
+        }
+    }
+
+    /**
+     */
+    protected function markTestSkippedIfMacIconvIsNotAvailable()
+    {
+        if (!$this->callProtectedMethod(StreamFilter::class, 'macIconvIsAvailable')) {
+            $this->markTestSkipped(
+                'Skipped test as "iconv" extension is either not available '
+                . 'or not able to handle "utf-8-mac" charset.'
+            );
         }
     }
 }
