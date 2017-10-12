@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Unicode Normalization Stream Filter.
@@ -310,8 +310,8 @@ class StreamFilter extends \php_user_filter
         }
         if (empty($form)) {
             // Nothing to do here. Throws exception below!
-        } elseif (isset(static::$forms[strtolower(strtr($form, '_', '-'))])) {
-            return static::$forms[strtolower(strtr($form, '_', '-'))];
+        } elseif (($name = strtolower(strtr((string) $form, '_', '-'))) && isset(static::$forms[$name])) {
+            return static::$forms[$name];
         } elseif (in_array((int) $form, static::$forms, true)) {
             return (int) $form;
         }
