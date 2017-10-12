@@ -155,7 +155,9 @@ class StreamFilter extends \php_user_filter
 
             return true;
         } elseif (strpos($this->filtername, '.') !== false) {
-            list($namespace, $form) = explode('.', $this->filtername, 2);
+            list($form, $namespace) = explode('.', strrev($this->filtername), 2);
+            $namespace = strrev($namespace);
+            $form = strrev($form);
             if ($namespace === static::$namespace) {
                 $this->form = $this->parseNormalizationForm($form);
 
