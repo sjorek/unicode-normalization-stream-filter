@@ -233,7 +233,7 @@ class StreamFilterTest extends TestCase
     public function checkParseNormalizationForm($expected, $form)
     {
         $this->markTestSkippedIfNormalizerIsNotAvailable();
-        if ((int) $form === StreamFilter::NFD_MAC) {
+        if ((int) $expected === StreamFilter::NFD_MAC) {
             $this->markTestSkippedIfMacIconvIsNotAvailable();
         }
 
