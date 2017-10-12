@@ -107,7 +107,7 @@ class StreamFilter extends \php_user_filter
      * @param  string $namespace
      * @return bool
      */
-    public static function register($namespace = 'normalize')
+    public static function register($namespace = 'convert.unicode-normalization')
     {
         // already registered or missing dependency ?
         if (static::$namespace !== null || !static::normalizerIsAvailable()) {
@@ -115,7 +115,7 @@ class StreamFilter extends \php_user_filter
         }
         $result = stream_filter_register($namespace, static::class);
         if ($result === true) {
-            $result = stream_filter_register(sprintf('%s.*', $namespace), static::class);
+            $result = stream_filter_register(sprintf('%s.*', $namespace), __CLASS__);
         }
         if ($result === true) {
             static::$namespace = $namespace;

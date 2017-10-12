@@ -276,10 +276,10 @@ class StreamFilterTest extends TestCase
         $this->assertTrue(StreamFilter::register(), 'stream-filter registration succeeds');
         $stream = $this->createStream();
 
-        $filter = stream_filter_append($stream, 'normalize', STREAM_FILTER_READ, $form);
+        $filter = stream_filter_append($stream, 'convert.unicode-normalization', STREAM_FILTER_READ, $form);
         $this->assertFalse($filter === false, 'create stream-filter with parameter succeeds');
 
-        $filter = stream_filter_append($stream, sprintf('normalize.%s', $form));
+        $filter = stream_filter_append($stream, sprintf('convert.unicode-normalization.%s', $form));
         $this->assertFalse($filter === false, 'create stream-filter with namespace succeeds');
     }
 
@@ -303,7 +303,7 @@ class StreamFilterTest extends TestCase
         $stream = $this->createStream();
 
         // throws Exception
-        stream_filter_append($stream, 'normalize', STREAM_FILTER_READ, 'NONSENSE');
+        stream_filter_append($stream, 'convert.unicode-normalization', STREAM_FILTER_READ, 'NONSENSE');
     }
 
     /**
@@ -326,7 +326,7 @@ class StreamFilterTest extends TestCase
         $stream = $this->createStream();
 
         // throws Exception
-        stream_filter_append($stream, sprintf('normalize.%s', $form));
+        stream_filter_append($stream, sprintf('convert.unicode-normalization.%s', $form));
     }
 
     // ////////////////////////////////////////////////////////////////
@@ -366,7 +366,7 @@ class StreamFilterTest extends TestCase
     {
         $this->assertTrue(StreamFilter::register(), 'stream-filter registration succeeds');
         $stream = $this->createStream();
-        $filter = stream_filter_append($stream, 'normalize', STREAM_FILTER_READ, $form);
+        $filter = stream_filter_append($stream, 'convert.unicode-normalization', STREAM_FILTER_READ, $form);
         $this->assertFalse($filter === false, 'append stream-filter with parameter succeeds');
         fwrite($stream, $fragment);
         rewind($stream);
@@ -419,7 +419,11 @@ class StreamFilterTest extends TestCase
     {
         $this->assertTrue(StreamFilter::register(), 'stream-filter registration succeeds');
         $stream = $this->createStream();
-        $filter = stream_filter_append($stream, sprintf('normalize.%s', $form), STREAM_FILTER_READ);
+        $filter = stream_filter_append(
+            $stream,
+            sprintf('convert.unicode-normalization.%s', $form),
+            STREAM_FILTER_READ
+        );
         $this->assertFalse($filter === false, 'append stream-filter with namespace succeeds');
         fwrite($stream, $fragment);
         rewind($stream);
