@@ -197,6 +197,8 @@ class StreamFilterTest extends TestCase
     {
         $this->markTestSkippedIfNormalizerIsNotAvailable();
 
+        $macIconvIsAvailable = $this->callProtectedMethod(StreamFilter::class, 'macIconvIsAvailable');
+
         $data = array();
         $matches = null;
 
@@ -207,6 +209,10 @@ class StreamFilterTest extends TestCase
         foreach ($matches as $match) {
             list(, $name, $form, $alternatives) = $match;
             $name = trim($name);
+
+            if ((int) $form === StreamFilter::NFD_MAC && !$macIconvIsAvailable) {
+                continue;
+            }
 
             $caption = sprintf('%s - parse as string \'%s\'', $name, $form);
             $data[$caption] = array((int) $form, (string) $form);
