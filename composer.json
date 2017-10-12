@@ -2,9 +2,23 @@
 	"name" : "sjorek/unicode-normalization-stream-filter",
 	"description" : "A stream filter to normalize unicode, currently only utf8.",
 	"license" : "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Stephan Jorek",
+			"email": "stephan.jorek@gmail.com"
+		}
+	],
 	"type" : "library",
 	"keywords" : [
-		"stream stream-filter unicode normalization utf8 nfc nfd nfkc nfkd"
+		"stream",
+		"stream-filter",
+		"unicode",
+		"normalization",
+		"utf8",
+		"nfc",
+		"nfd",
+		"nfkc",
+		"nfkd"
 	],
 	"autoload" : {
 		"psr-4" : {
@@ -24,5 +38,9 @@
 		"ext-iconv" : "This stream filter can use a php-based implementation utilizing 'iconv'-extension and one of the other three Normalizer-implementations to provide a special unicode-normalization for HFS+ filesystems",
 		"symfony/polyfill-intl-normalizer" : "This stream filter can use the php-based Normalizer-implementation from 'symfony/polyfill-intl-normalizer' package to provide unicode-normalization, but 'intl'-extensions' native implementation is preferred",
 		"patchwork/utf8" : "This stream filter can use the php-based Normalizer-implementation from 'patchwork/utf8' package to provide unicode-normalization, but 'intl'-extensions' native implementation is preferred"
+	},
+	"scripts": {
+		"build": "php-cs-fixer fix",
+		"test": "phpunit"
 	}
 }
