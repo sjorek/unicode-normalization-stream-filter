@@ -62,7 +62,7 @@ Look at the [contribution guidelines](CONTRIBUTING.md)
 
 [![GitHub Issues](https://img.shields.io/github/issues/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/issues)
 [![GitHub Latest Tag](https://img.shields.io/github/tag/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/tags)
-[![GitHub Total Downloads](https://img.shields.io/github/downloads/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/releases)
+[![GitHub Total Downloads](https://img.shields.io/github/downloads/sjorek/unicode-normalization-stream-filter/total.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/releases)
 
 
 ## Packagist
