@@ -33,15 +33,17 @@ stream_copy_to_stream($in_file, $out_file);
 ```php
 <?php
 /**
- * resource   $stream        The stream to filter.
- * string     $form          The form to normalize unicode to.
- * int        $read_write    STREAM_FILTER_* constants to override the filter injection point
+ * @var $stream        resource   The stream to filter.
+ * @var $form          string     The form to normalize unicode to.
+ * @var $read_write    int        STREAM_FILTER_* constant to override the filter injection point
+ *
  * @link http://php.net/manual/en/function.stream-filter-append.php
+ * @link http://php.net/manual/en/function.stream-filter-prepend.php
  */
 stream_filter_append($stream, "convert.unicode-normalization.$form", $read_write);
 ```
 
-Note: Be careful when using on streams in 'r+' or 'w+' (or similar) modes; by default PHP will assign the
+Note: Be careful when using on streams in `r+` or `w+` (or similar) modes; by default PHP will assign the
 filter to both the reading and writing chain. This means it will attempt to convert the data twice - first when
 reading from the stream, and once again when writing to it.
 
