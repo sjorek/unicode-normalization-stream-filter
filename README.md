@@ -60,9 +60,9 @@ Look at the [contribution guidelines](CONTRIBUTING.md)
 
 ## GitHub
 
-[![GitHub Latest Release](https://img.shields.io/github/release/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/releases)
-[![GitHub Commits since Latest Release](https://img.shields.io/github/commits-since/sjorek/unicode-normalization-stream-filter/latest.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/commits)
 [![GitHub Issues](https://img.shields.io/github/issues/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/issues)
+[![GitHub Latest Tag](https://img.shields.io/github/tag/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/tags)
+[![GitHub Total Downloads](https://img.shields.io/github/downloads/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/releases)
 
 
 ## Packagist
