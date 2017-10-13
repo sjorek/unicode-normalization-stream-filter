@@ -434,6 +434,266 @@ class StreamFilterTest extends TestCase
         fclose($stream);
     }
 
+    /**
+     * @return array
+     */
+    public function provideCheckFilterConformanceData()
+    {
+        static $iterators;
+
+        $this->markTestSkippedIfNormalizerIsNotAvailable();
+
+        $data = array();
+        $forms = array(
+            \Normalizer::NONE,
+            \Normalizer::NFC,
+            \Normalizer::NFD,
+            \Normalizer::NFKC,
+            \Normalizer::NFKD,
+        );
+
+        if ($this->callProtectedMethod(StreamFilter::class, 'macIconvIsAvailable')) {
+            $forms[] = StreamFilter::NFD_MAC;
+        }
+
+        $unicodeConformanceLevel = extension_loaded('intl') ? '9.0.0' : '7.0.0';
+        foreach (array('6.3.0', '7.0.0', '8.0.0', '9.0.0', '10.0.0') as $unicodeVersion) {
+            if (version_compare($unicodeVersion, $unicodeConformanceLevel, '>')) {
+                continue;
+            }
+            foreach ($forms as $form) {
+                $caption = 'unicode version %s with normalization form %s (%s)';
+                switch ($form) {
+                    case \Normalizer::NONE:
+                        $caption = sprintf($caption, $unicodeVersion, $form, 'NONE');
+                        break;
+                    case \Normalizer::NFC:
+                        $caption = sprintf($caption, $unicodeVersion, $form, 'NFC');
+                        break;
+                    case \Normalizer::NFD:
+                        $caption = sprintf($caption, $unicodeVersion, $form, 'NFD');
+                        break;
+                    case \Normalizer::NFKC:
+                        $caption = sprintf($caption, $unicodeVersion, $form, 'NFKC');
+                        break;
+                    case \Normalizer::NFKD:
+                        $caption = sprintf($caption, $unicodeVersion, $form, 'NFKD');
+                        break;
+                    case StreamFilter::NFD_MAC:
+                        $caption = sprintf($caption, $unicodeVersion, $form, 'NFD_MAC');
+                }
+                if (isset($iterators[$unicodeVersion])) {
+                    $reader = $iterators[$unicodeVersion];
+                } else {
+                    $reader = new Fixtures\UnicodeNormalizationTestReader($unicodeVersion);
+                    $iterators[$unicodeVersion] = $reader;
+                }
+                $data[$caption] = array($unicodeVersion, $form, $reader);
+            }
+        }
+        if (empty($data)) {
+            $this->markTestSkipped(
+                sprintf(
+                    'Skipped test as "%s" is not conform to any unicode version.',
+                    \Normalizer::class
+                )
+            );
+        }
+
+        return $data;
+    }
+
+    /**
+     * @test
+     * @large
+     * @runInSeparateProcess
+     * @dataProvider provideCheckFilterConformanceData
+     *
+     * @param string                                  $unicodeVersion
+     * @param int                                     $form
+     * @param Fixtures\UnicodeNormalizationTestReader $fileIterator
+     */
+    public function checkFilterConformance(
+        $unicodeVersion,
+        $form,
+        Fixtures\UnicodeNormalizationTestReader $fileIterator
+    ) {
+        $this->assertTrue(StreamFilter::register(), 'stream-filter registration succeeds');
+        $delimiter = ' @' . chr(10) . '@ ';
+        $chunkSize = 100;
+        foreach ($fileIterator as $lineNumber => $data) {
+            list($comment, $codes) = $data;
+            $testIterator = $this->checkFilterConformanceIterator(
+                $unicodeVersion,
+                $form,
+                $lineNumber,
+                $comment,
+                $codes
+            );
+            $chunkPosition = 0;
+            foreach ($testIterator as $message => $data) {
+                if ($chunkPosition === 0) {
+                    $expectStream = $this->createStream();
+                    $actualStream = $this->createStream();
+                    $filter = stream_filter_append(
+                        $actualStream,
+                        'convert.unicode-normalization',
+                        STREAM_FILTER_READ,
+                        $form
+                    );
+                    $this->assertFalse($filter === false, 'append stream-filter with namespace succeeds');
+                }
+
+                list($expected, $actual) = $data;
+
+                fwrite($expectStream, sprintf('%s: %s %s', $message, $expected, $delimiter));
+                fwrite($actualStream, sprintf('%s: %s %s', $message, $actual, $delimiter));
+
+                if ($chunkPosition < $chunkSize) {
+                    $chunkPosition += 1;
+                } else {
+                    $chunkPosition = 0;
+
+                    rewind($expectStream);
+                    $expected = stream_get_contents($expectStream);
+                    fclose($expectStream);
+
+                    rewind($actualStream);
+                    $actual = stream_get_contents($actualStream);
+                    fclose($actualStream);
+
+                    $this->assertEquals(explode($delimiter, $expected), explode($delimiter, $actual));
+                    $this->assertSame($expected, $actual);
+                }
+            }
+
+            if ($chunkPosition > 0) {
+                rewind($expectStream);
+                $expected = stream_get_contents($expectStream);
+                fclose($expectStream);
+
+                rewind($actualStream);
+                $actual = stream_get_contents($actualStream);
+                fclose($actualStream);
+
+                $this->assertEquals(explode($delimiter, $expected), explode($delimiter, $actual));
+                $this->assertSame($expected, $actual);
+            }
+        }
+    }
+
+    /**
+     * @param  string     $unicodeVersion
+     * @param  int        $form
+     * @param  int        $lineNumber
+     * @param  string     $comment
+     * @param  array      $codes
+     * @return \Generator
+     */
+    protected function checkFilterConformanceIterator(
+        $unicodeVersion,
+        $form,
+        $lineNumber,
+        $comment,
+        array $codes
+    ) {
+
+        //$f_NONE = NormalizerInterface::NONE;
+        $f_NFC = \Normalizer::NFC;
+        $f_NFD = \Normalizer::NFD;
+        $f_NFKC = \Normalizer::NFKC;
+        $f_NFKD = \Normalizer::NFKD;
+        $f_MAC = StreamFilter::NFD_MAC;
+
+        $validForMac = preg_match('/^(EFBFBD)+$/', bin2hex($codes[5]));
+
+        if ($form === $f_NFC) {
+            $message = sprintf(
+                'Normalize to NFC for version %s line %s codepoint %%s: %s',
+                $unicodeVersion,
+                $lineNumber,
+                $comment
+            );
+            yield sprintf($message, '1 (RAW)') => array($codes[1], $codes[0]);
+            yield sprintf($message, '2 (NFC)') => array($codes[1], $codes[1]);
+            yield sprintf($message, '3 (NFD)') => array($codes[1], $codes[2]);
+            yield sprintf($message, '4 (NFKC)') => array($codes[3], $codes[3]);
+            yield sprintf($message, '5 (NFKD)') => array($codes[3], $codes[4]);
+            if ($validForMac) {
+                yield sprintf($message, '6 (NFD_MAC)') => array($codes[1], $codes[5]);
+            }
+        }
+
+        if ($form === $f_NFD) {
+            $message = sprintf(
+                'Normalize to NFD for version %s line %s codepoint %%s: %s',
+                $unicodeVersion,
+                $lineNumber,
+                $comment
+            );
+            yield sprintf($message, '1 (RAW)') => array($codes[2], $codes[0]);
+            yield sprintf($message, '2 (NFC)') => array($codes[2], $codes[1]);
+            yield sprintf($message, '3 (NFD)') => array($codes[2], $codes[2]);
+            yield sprintf($message, '4 (NFKC)') => array($codes[4], $codes[3]);
+            yield sprintf($message, '5 (NFKD)') => array($codes[4], $codes[4]);
+            if ($validForMac) {
+                yield sprintf($message, '6 (NFD_MAC)') => array($codes[2], $codes[5]);
+            }
+        }
+
+        if ($form === $f_NFKC) {
+            $message = sprintf(
+                'Normalize to NFKC for version %s line %s codepoint %%s: %s',
+                $unicodeVersion,
+                $lineNumber,
+                $comment
+            );
+            yield sprintf($message, '1 (RAW)') => array($codes[3], $codes[0]);
+            yield sprintf($message, '2 (NFC)') => array($codes[3], $codes[1]);
+            yield sprintf($message, '3 (NFD)') => array($codes[3], $codes[2]);
+            yield sprintf($message, '4 (NFKC)') => array($codes[3], $codes[3]);
+            yield sprintf($message, '5 (NFKD)') => array($codes[3], $codes[4]);
+            if ($validForMac) {
+                yield sprintf($message, '6 (NFD_MAC)') => array($codes[3], $codes[5]);
+            }
+        }
+
+        if ($form === $f_NFKD) {
+            $message = sprintf(
+                'Normalize to NFKD for version %s line %s codepoint %%s: %s',
+                $unicodeVersion,
+                $lineNumber,
+                $comment
+            );
+            yield sprintf($message, '1 (RAW)') => array($codes[4], $codes[0]);
+            yield sprintf($message, '2 (NFC)') => array($codes[4], $codes[1]);
+            yield sprintf($message, '3 (NFD)') => array($codes[4], $codes[2]);
+            yield sprintf($message, '4 (NFKC)') => array($codes[4], $codes[3]);
+            yield sprintf($message, '5 (NFKD)') => array($codes[4], $codes[4]);
+            if ($validForMac) {
+                yield sprintf($message, '6 (NFD_MAC)') => array($codes[4], $codes[5]);
+            }
+        }
+
+        if ($form === $f_MAC) {
+            $message = sprintf(
+                'Normalize to NFD_MAC for version %s line %s codepoint %%s: %s',
+                $unicodeVersion,
+                $lineNumber,
+                $comment
+            );
+            yield sprintf($message, '1 (RAW)') => array($codes[5], $codes[0]);
+            yield sprintf($message, '2 (NFC)') => array($codes[5], $codes[1]);
+            yield sprintf($message, '3 (NFD)') => array($codes[5], $codes[2]);
+
+            if ($validForMac) {
+                yield sprintf($message, '4 (NFKC)') => array($codes[3], $codes[3]);
+                yield sprintf($message, '5 (NFKD)') => array($codes[4], $codes[4]);
+                yield sprintf($message, '6 (NFD_MAC)') => array($codes[5], $codes[5]);
+            }
+        }
+    }
+
     // ////////////////////////////////////////////////////////////////
     // utility methods
     // ////////////////////////////////////////////////////////////////

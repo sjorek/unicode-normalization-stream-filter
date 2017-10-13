@@ -41,6 +41,9 @@
 	},
 	"scripts": {
 		"build": "php-cs-fixer fix",
-		"test": "phpunit"
+		"test": "phpunit -v",
+		"test-quick": "phpunit -v --exclude-group",
+		"test-large": "phpunit -v --group=large",
+		"update-unicode-normalization-test-fixtures": "php build/scripts/updateUnicodeNormalizationTestFixtures.php"
 	}
 }
