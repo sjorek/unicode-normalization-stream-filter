@@ -1,14 +1,24 @@
 <?php
-namespace Sjorek\UnicodeNormalization\Tests\Fixtures;
 
- /**
-  * A file object to write "UnicodeNormalizationTest.X.Y.Z.txt" fixture files.
-  *  
-  * @author Stephan Jorek <stephan.jorek@gmail.com>
-  */
-class UnicodeNormalizationTestWriter extends \SplFileObject {
+/*
+ * This file is part of Unicode Normalization Stream Filter.
+ *
+ * (c) Stephan Jorek <stephan.jorek@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-    const FIRST_LINE  = '# Generator : %s';
+namespace Sjorek\UnicodeNormalization\Tests;
+
+/**
+ * A file object to write "UnicodeNormalizationTest.X.Y.Z.txt" fixture files.
+ *
+ * @author Stephan Jorek <stephan.jorek@gmail.com>
+ */
+class UnicodeNormalizationTestWriter extends \SplFileObject
+{
+    const FIRST_LINE = '# Generator : %s';
     const SECOND_LINE = '# Source    : %s';
 
     /**
@@ -24,7 +34,10 @@ class UnicodeNormalizationTestWriter extends \SplFileObject {
      */
     public function __construct($unicodeVersion, $generator, $source)
     {
-        $destinationTemplate = __DIR__ . '/UnicodeNormalizationTest.%s.txt.gz';
+        $destinationTemplate = implode(
+            DIRECTORY_SEPARATOR,
+            array(__DIR__, 'Fixtures', 'UnicodeNormalizationTest.%s.txt.gz')
+        );
         $this->filePath = sprintf($destinationTemplate, $unicodeVersion);
         parent::__construct('compress.zlib://' . $this->filePath, 'w', false);
         $this->add(sprintf(self::FIRST_LINE, $generator) . chr(10));

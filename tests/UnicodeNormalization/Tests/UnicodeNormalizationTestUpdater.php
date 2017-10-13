@@ -1,15 +1,25 @@
 <?php
-namespace Sjorek\UnicodeNormalization\Tests\Fixtures;
 
- /**
-  * An iterator to import "UnicodeNormalizationTest.X.Y.Z.txt" files from www.unicode.org.
-  *  
-  * @author Stephan Jorek <stephan.jorek@gmail.com>
-  */
-class UnicodeNormalizationTestUpdater implements \IteratorAggregate {
+/*
+ * This file is part of Unicode Normalization Stream Filter.
+ *
+ * (c) Stephan Jorek <stephan.jorek@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-    public static function setup() {
+namespace Sjorek\UnicodeNormalization\Tests;
 
+/**
+ * An iterator to import "UnicodeNormalizationTest.X.Y.Z.txt" files from www.unicode.org.
+ *
+ * @author Stephan Jorek <stephan.jorek@gmail.com>
+ */
+class UnicodeNormalizationTestUpdater implements \IteratorAggregate
+{
+    public static function setup()
+    {
         if (!extension_loaded('iconv')) {
             die('Missing "iconv" extension.' . chr(10));
         }
@@ -36,7 +46,7 @@ class UnicodeNormalizationTestUpdater implements \IteratorAggregate {
      *
      * @param $unicodeVersion string
      */
-    public function __construct ($unicodeVersion)
+    public function __construct($unicodeVersion)
     {
         $sourceTemplate = 'https://www.unicode.org/Public/%s/ucd/NormalizationTest.txt';
         $this->source = sprintf($sourceTemplate, $unicodeVersion);
@@ -48,7 +58,7 @@ class UnicodeNormalizationTestUpdater implements \IteratorAggregate {
      */
     public function getIterator()
     {
-        return (function() {
+        return (function () {
             foreach ($this->iterator as $lineNumber => $line) {
                 $lineNumber += 1;
                 yield $lineNumber => $this->processLine($lineNumber, $line);
@@ -57,8 +67,8 @@ class UnicodeNormalizationTestUpdater implements \IteratorAggregate {
     }
 
     /**
-     * @param integer $lineNumber
-     * @param string $line
+     * @param  int        $lineNumber
+     * @param  string     $line
      * @throws \Exception
      * @return string[]
      */
@@ -76,7 +86,7 @@ class UnicodeNormalizationTestUpdater implements \IteratorAggregate {
             $mac = null;
             foreach ($codes as $index => $string) {
                 $codepoints = array_map(
-                    function($codepoint) {
+                    function ($codepoint) {
                         return mb_chr(hexdec($codepoint), 'utf-8');
                     },
                     explode(' ', $string)
@@ -84,7 +94,7 @@ class UnicodeNormalizationTestUpdater implements \IteratorAggregate {
 
                 if ($index === 2) {
                     $mac = array_map(
-                        function($n) use($lineNumber) {
+                        function ($n) use ($lineNumber) {
                             $m = iconv('utf-8', 'utf-8-mac', $n);
                             if ($m === false) {
                                 throw new \Exception(
@@ -95,6 +105,7 @@ class UnicodeNormalizationTestUpdater implements \IteratorAggregate {
                                     )
                                 );
                             }
+
                             return strtoupper(bin2hex($m));
                         },
                         $codepoints
@@ -109,6 +120,7 @@ class UnicodeNormalizationTestUpdater implements \IteratorAggregate {
             $codes[5] = $mac;
             $codes[6] = ' ';
             $codes = implode(';', $codes);
+
             return array(implode('#', array_merge(array($codes), $codesAndComment)), $comment);
         } else {
             return array(
@@ -117,7 +129,7 @@ class UnicodeNormalizationTestUpdater implements \IteratorAggregate {
                     '#      source; NFC; NFD; NFKC; NFKD; NFD_MAC',
                     $line
                 ),
-                ""
+                "",
             );
         }
     }

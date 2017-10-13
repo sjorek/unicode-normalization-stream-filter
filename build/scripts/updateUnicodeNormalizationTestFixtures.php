@@ -1,8 +1,18 @@
 #!/usr/bin/env php
 <?php
-namespace Sjorek\UnicodeNormalization\Tests\Fixtures;
 
-$unicodeVersions = ['6.3.0', '7.0.0', '8.0.0', '9.0.0', '10.0.0'];
+/*
+ * This file is part of Unicode Normalization Stream Filter.
+ *
+ * (c) Stephan Jorek <stephan.jorek@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Sjorek\UnicodeNormalization\Tests;
+
+$unicodeVersions = array('6.3.0', '7.0.0', '8.0.0', '9.0.0', '10.0.0');
 
 if (php_sapi_name() !== 'cli') {
     die('Script must be called from command line.' . chr(10));
@@ -26,14 +36,13 @@ require 'vendor/autoload.php';
 
 UnicodeNormalizationTestUpdater::setup();
 
-foreach($unicodeVersions as $unicodeVersion) {
-
+foreach ($unicodeVersions as $unicodeVersion) {
     try {
         $updater = new UnicodeNormalizationTestUpdater(
             $unicodeVersion
         );
         echo sprintf('Fetching unicode version %s from: %s', $unicodeVersion, $updater->source) . chr(10);
-    
+
         $writer = new UnicodeNormalizationTestWriter(
             $unicodeVersion,
             basename(__FILE__),
@@ -41,7 +50,7 @@ foreach($unicodeVersions as $unicodeVersion) {
         );
         echo sprintf('Importing unicode version %s to %s', $unicodeVersion, $writer->filePath) . chr(10) . chr(10);
 
-        foreach($updater as $lineNumber => $data) {
+        foreach ($updater as $lineNumber => $data) {
             $line = array_shift($data);
             $comment = array_shift($data);
             if ($comment) {
@@ -50,7 +59,6 @@ foreach($unicodeVersions as $unicodeVersion) {
             $writer->add($line);
         }
         echo sprintf('Imported unicode version %s to %s', $unicodeVersion, $writer->filePath) . chr(10) . chr(10);
-
     } catch (\Exception $e) {
         die(sprintf('An error occurred: %s', $e->getMessage()) . chr(10));
     }

@@ -478,12 +478,13 @@ class StreamFilterTest extends TestCase
                 if (isset($iterators[$unicodeVersion])) {
                     $reader = $iterators[$unicodeVersion];
                 } else {
-                    $reader = new Fixtures\UnicodeNormalizationTestReader($unicodeVersion);
+                    $reader = new UnicodeNormalizationTestReader($unicodeVersion);
                     $iterators[$unicodeVersion] = $reader;
                 }
                 $data[$caption] = array($unicodeVersion, $form, $reader);
             }
         }
+
         return $data;
     }
 
@@ -500,7 +501,7 @@ class StreamFilterTest extends TestCase
     public function checkFilterConformance(
         $unicodeVersion,
         $form,
-        Fixtures\UnicodeNormalizationTestReader $fileIterator
+        UnicodeNormalizationTestReader $fileIterator
     ) {
         $this->markTestSkippedIfUnicodeConformanceLevelIsInsufficient($unicodeVersion);
 

@@ -1,13 +1,23 @@
 <?php
-namespace Sjorek\UnicodeNormalization\Tests\Fixtures;
 
- /**
-  * An iterator to read "UnicodeNormalizationTest.X.Y.Z.txt.gz" fixture files.
-  *  
-  * @author Stephan Jorek <stephan.jorek@gmail.com>
-  */
-class UnicodeNormalizationTestReader implements \IteratorAggregate {
+/*
+ * This file is part of Unicode Normalization Stream Filter.
+ *
+ * (c) Stephan Jorek <stephan.jorek@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
+namespace Sjorek\UnicodeNormalization\Tests;
+
+/**
+ * An iterator to read "UnicodeNormalizationTest.X.Y.Z.txt.gz" fixture files.
+ *
+ * @author Stephan Jorek <stephan.jorek@gmail.com>
+ */
+class UnicodeNormalizationTestReader implements \IteratorAggregate
+{
     /**
      * @var string
      */
@@ -33,17 +43,19 @@ class UnicodeNormalizationTestReader implements \IteratorAggregate {
      *
      * @param $unicodeVersion string
      */
-    public function __construct ($unicodeVersion)
+    public function __construct($unicodeVersion)
     {
-
         $this->unicodeVersion = $unicodeVersion;
 
-        $sourceTemplate = __DIR__ . '/UnicodeNormalizationTest.%s.txt.gz';
+        $sourceTemplate = implode(
+            DIRECTORY_SEPARATOR,
+            array(__DIR__, 'Fixtures', 'UnicodeNormalizationTest.%s.txt.gz')
+        );
         $this->source = sprintf($sourceTemplate, $this->unicodeVersion);
 
         $this->fileObject = new \SplFileObject('compress.zlib://' . $this->source, 'r', false);
         $array = iterator_to_array(
-            (function() {
+            (function () {
                 foreach ($this->fileObject as $lineNumber => $line) {
                     $lineNumber += 1;
                     yield from $this->processLine($lineNumber, $line);
@@ -64,8 +76,8 @@ class UnicodeNormalizationTestReader implements \IteratorAggregate {
     }
 
     /**
-     * @param integer $lineNumber
-     * @param string $line
+     * @param  int        $lineNumber
+     * @param  string     $line
      * @throws \Exception
      * @return string[]
      */
@@ -85,6 +97,6 @@ class UnicodeNormalizationTestReader implements \IteratorAggregate {
         $codes = array_filter($codes);
         $codes = array_map('hex2bin', $codes);
 
-        yield $lineNumber => [$comment, $codes];
+        yield $lineNumber => array($comment, $codes);
     }
 }
