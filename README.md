@@ -1,21 +1,5 @@
 # [Unicode-Normalization Stream-Filter](https://sjorek.github.io/unicode-normalization-stream-filter/)
 
-[![Build Status](https://img.shields.io/travis/sjorek/unicode-normalization-stream-filter.svg)](https://travis-ci.org/sjorek/unicode-normalization-stream-filter)
-[![Dependency Status](https://img.shields.io/gemnasium/sjorek/unicode-normalization-stream-filter.svg)](https://gemnasium.com/github.com/sjorek/unicode-normalization-stream-filter)
-[![GitHub Latest Release](https://img.shields.io/github/release/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/releases)
-[![GitHub Commits since Latest Release](https://img.shields.io/github/commits-since/sjorek/unicode-normalization-stream-filter/latest.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/commits)
-[![GitHub Issues](https://img.shields.io/github/issues/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/issues)
-
-[![Packagist Latest Stable Version](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/version)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
-[![Packagist Total Downloads](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/downloads)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
-[![Packagist Latest Unstable Version](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/v/unstable)](//packagist.org/packages/sjorek/unicode-normalization-stream-filter)
-[![Packagist License](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/license)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
-
-[![GitHub Forks](https://img.shields.io/github/forks/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/network)
-[![GitHub Stars](https://img.shields.io/github/stars/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/stargazers)
-[![GitHub Watchers](https://img.shields.io/github/watchers/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/watchers)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fsjorek.github.io%2Funicode-normalization-stream-filter%2F)
-
 A [composer](http://getcomposer.org)-package providing a unicode-normalization stream-filter.
 
 
@@ -65,4 +49,25 @@ reading from the stream, and once again when writing to it.
 ## Contributing
 
 Look at the [contribution guidelines](CONTRIBUTING.md)
+
+## Links
+
+GitHub:
+[![Build Status](https://img.shields.io/travis/sjorek/unicode-normalization-stream-filter.svg)](https://travis-ci.org/sjorek/unicode-normalization-stream-filter)
+[![Dependency Status](https://img.shields.io/gemnasium/sjorek/unicode-normalization-stream-filter.svg)](https://gemnasium.com/github.com/sjorek/unicode-normalization-stream-filter)
+[![GitHub Latest Release](https://img.shields.io/github/release/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/releases)
+[![GitHub Commits since Latest Release](https://img.shields.io/github/commits-since/sjorek/unicode-normalization-stream-filter/latest.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/commits)
+[![GitHub Issues](https://img.shields.io/github/issues/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/issues)
+
+Packagist:
+[![Packagist Latest Stable Version](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/version)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
+[![Packagist Total Downloads](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/downloads)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
+[![Packagist Latest Unstable Version](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/v/unstable)](//packagist.org/packages/sjorek/unicode-normalization-stream-filter)
+[![Packagist License](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/license)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
+
+Social:
+[![GitHub Forks](https://img.shields.io/github/forks/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/network)
+[![GitHub Stars](https://img.shields.io/github/stars/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/stargazers)
+[![GitHub Watchers](https://img.shields.io/github/watchers/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/watchers)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fsjorek.github.io%2Funicode-normalization-stream-filter%2F)
 
