@@ -450,17 +450,10 @@ class StreamFilterTest extends TestCase
             \Normalizer::NFD,
             \Normalizer::NFKC,
             \Normalizer::NFKD,
+            StreamFilter::NFD_MAC,
         );
 
-        if ($this->callProtectedMethod(StreamFilter::class, 'macIconvIsAvailable')) {
-            $forms[] = StreamFilter::NFD_MAC;
-        }
-
-        $unicodeConformanceLevel = extension_loaded('intl') ? '9.0.0' : '7.0.0';
         foreach (array('6.3.0', '7.0.0', '8.0.0', '9.0.0', '10.0.0') as $unicodeVersion) {
-            if (version_compare($unicodeVersion, $unicodeConformanceLevel, '>')) {
-                continue;
-            }
             foreach ($forms as $form) {
                 $caption = 'unicode version %s with normalization form %s (%s)';
                 switch ($form) {
@@ -491,15 +484,6 @@ class StreamFilterTest extends TestCase
                 $data[$caption] = array($unicodeVersion, $form, $reader);
             }
         }
-        if (empty($data)) {
-            $this->markTestSkipped(
-                sprintf(
-                    'Skipped test as "%s" is not conform to any unicode version.',
-                    \Normalizer::class
-                )
-            );
-        }
-
         return $data;
     }
 
@@ -518,6 +502,12 @@ class StreamFilterTest extends TestCase
         $form,
         Fixtures\UnicodeNormalizationTestReader $fileIterator
     ) {
+        $this->markTestSkippedIfUnicodeConformanceLevelIsInsufficient($unicodeVersion);
+
+        if ($form === StreamFilter::NFD_MAC) {
+            $this->markTestSkippedIfMacIconvIsNotAvailable();
+        }
+
         $this->assertTrue(StreamFilter::register(), 'stream-filter registration succeeds');
         $delimiter = ' @' . chr(10) . '@ ';
         $chunkSize = 100;
@@ -766,6 +756,36 @@ class StreamFilterTest extends TestCase
             $this->markTestSkipped(
                 'Skipped test as "iconv" extension is either not available '
                 . 'or not able to handle "utf-8-mac" charset.'
+            );
+        }
+    }
+
+    protected static $unicodeConformanceLevel = null;
+
+    /**
+     * @param string $unicodeVersion
+     */
+    protected function markTestSkippedIfUnicodeConformanceLevelIsInsufficient($unicodeVersion)
+    {
+        if (static::$unicodeConformanceLevel === null) {
+            // If it is not a mac - this is a stupid assumption that every Darwin is a Mac!
+            if (false === stripos(PHP_OS, 'Darwin')) {
+                // The 'intl' extension's Normalizer implementation is less conform than
+                // implementations from 'patchwork/utf8' or 'symfony/polyfill-intl-normalizer'
+                static::$unicodeConformanceLevel = extension_loaded('intl') ? '6.3.0' : '7.0.0';
+            } else {
+                // On Mac OS the 'intl'-extension uses the underlying operating
+                // system features, which conforms to higher levels than above!
+                static::$unicodeConformanceLevel = extension_loaded('intl') ? '9.0.0' : '7.0.0';
+            }
+        }
+        if (version_compare($unicodeVersion, static::$unicodeConformanceLevel, '>')) {
+            $this->markTestSkipped(
+                sprintf(
+                    'Skipped test as unicode version %s is higher than the supported unicode conformance level %s.',
+                    $unicodeVersion,
+                    static::$unicodeConformanceLevel
+                )
             );
         }
     }
