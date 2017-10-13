@@ -1,4 +1,4 @@
-# [unicode-normalization stream-filter](https://sjorek.github.io/unicode-normalization-stream-filter/) for [composer](http://getcomposer.org)
+# [A Unicode-Normalization Stream-Filter](https://sjorek.github.io/unicode-normalization-stream-filter/) for [Composer](http://getcomposer.org)
 
 [![Build Status](https://img.shields.io/travis/sjorek/unicode-normalization-stream-filter.svg)](https://travis-ci.org/sjorek/unicode-normalization-stream-filter)
 [![Dependency Status](https://img.shields.io/gemnasium/sjorek/unicode-normalization-stream-filter.svg)](https://gemnasium.com/github.com/sjorek/unicode-normalization-stream-filter)
