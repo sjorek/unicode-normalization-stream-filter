@@ -58,14 +58,14 @@ Look at the [contribution guidelines](CONTRIBUTING.md)
 [![Dependency Status](https://img.shields.io/gemnasium/sjorek/unicode-normalization-stream-filter.svg)](https://gemnasium.com/github.com/sjorek/unicode-normalization-stream-filter)
 
 
-## GitHub
+### GitHub
 
 [![GitHub Issues](https://img.shields.io/github/issues/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/issues)
 [![GitHub Latest Tag](https://img.shields.io/github/tag/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/tags)
 [![GitHub Total Downloads](https://img.shields.io/github/downloads/sjorek/unicode-normalization-stream-filter/total.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/releases)
 
 
-## Packagist
+### Packagist
 
 [![Packagist Latest Stable Version](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/version)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
 [![Packagist Total Downloads](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/downloads)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
@@ -73,7 +73,7 @@ Look at the [contribution guidelines](CONTRIBUTING.md)
 [![Packagist License](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/license)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
 
 
-## Social
+### Social
 
 [![GitHub Forks](https://img.shields.io/github/forks/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/network)
 [![GitHub Stars](https://img.shields.io/github/stars/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/stargazers)
