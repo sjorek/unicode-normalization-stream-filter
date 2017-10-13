@@ -27,7 +27,6 @@ php composer.phar require sjorek/unicode-normalization-stream-filter
 
 ```php
 <?php
-// Not required if the file was autoloaded (e.g. using composer)
 \Sjorek\UnicodeNormalization\StreamFilter::register();
 
 $in_file = fopen('utf8-file.txt', 'r');
