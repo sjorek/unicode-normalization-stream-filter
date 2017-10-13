@@ -1,6 +1,7 @@
 {
 	"name" : "sjorek/unicode-normalization-stream-filter",
 	"description" : "A stream filter to normalize unicode, currently only utf8.",
+	"homepage" : "https://sjorek.github.io/unicode-normalization-stream-filter/",
 	"license" : "BSD-3-Clause",
 	"authors": [
 		{
