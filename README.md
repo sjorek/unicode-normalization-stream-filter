@@ -71,7 +71,7 @@ Look at the [contribution guidelines](CONTRIBUTING.md)
 
 [![Packagist Latest Stable Version](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/version)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
 [![Packagist Total Downloads](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/downloads)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
-[![Packagist Latest Unstable Version](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/v/unstable)](//packagist.org/packages/sjorek/unicode-normalization-stream-filter)
+[![Packagist Latest Unstable Version](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/v/unstable)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
 [![Packagist License](https://poser.pugx.org/sjorek/unicode-normalization-stream-filter/license)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
 
 
