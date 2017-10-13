@@ -1,7 +1,15 @@
 # [unicode-normalization stream-filter](https://sjorek.github.io/unicode-normalization-stream-filter/) for [composer](http://getcomposer.org)
 
-[![Build Status](https://travis-ci.org/sjorek/unicode-normalization-stream-filter.svg?branch=master)](https://travis-ci.org/sjorek/unicode-normalization-stream-filter)
-[![Dependency Status](https://gemnasium.com/badges/github.com/sjorek/unicode-normalization-stream-filter.svg)](https://gemnasium.com/github.com/sjorek/unicode-normalization-stream-filter)
+[![Packagist version](https://img.shields.io/packagist/v/sjorek/unicode-normalization-stream-filter.svg)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter)
+[![Packagist downloads](https://img.shields.io/packagist/dt/sjorek/unicode-normalization-stream-filter.svg)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter/stats)
+[![Build Status](https://img.shields.io/travis/sjorek/unicode-normalization-stream-filter.svg)](https://travis-ci.org/sjorek/unicode-normalization-stream-filter)
+[![Dependency Status](https://img.shields.io/gemnasium/sjorek/unicode-normalization-stream-filter.svg)](https://gemnasium.com/github.com/sjorek/unicode-normalization-stream-filter)
+[![GitHub issues](https://img.shields.io/github/issues/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/issues)
+[![3-Clause BSD License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](LICENSE)
+[![GitHub forks](https://img.shields.io/github/forks/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/network)
+[![GitHub stars](https://img.shields.io/github/stars/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://github.com/sjorek/unicode-normalization-stream-filter/watchers)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/sjorek/unicode-normalization-stream-filter.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fsjorek.github.io%2Funicode-normalization-stream-filter%2F)
 
 A [composer](http://getcomposer.org)-package providing a unicode-normalization stream-filter.
 
