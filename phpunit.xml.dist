@@ -12,9 +12,13 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="true"
-         stopOnFailure="true"
+         stopOnError="true"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         stopOnRisky="false"
          syntaxCheck="false"
-         colors="true"
+         colors="auto"
          verbose="true">
     <testsuite>
         <directory suffix="Test.php">tests</directory>
