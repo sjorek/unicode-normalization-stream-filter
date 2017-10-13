@@ -4,6 +4,7 @@
 [![Packagist downloads](https://img.shields.io/packagist/dt/sjorek/unicode-normalization-stream-filter.svg)](https://packagist.org/packages/sjorek/unicode-normalization-stream-filter/stats)
 [![Build Status](https://img.shields.io/travis/sjorek/unicode-normalization-stream-filter.svg)](https://travis-ci.org/sjorek/unicode-normalization-stream-filter)
 [![Dependency Status](https://img.shields.io/gemnasium/sjorek/unicode-normalization-stream-filter.svg)](https://gemnasium.com/github.com/sjorek/unicode-normalization-stream-filter)
+[![Development Dependency Status](https://gemnasium.com/badges/github.com/sjorek/unicode-normalization-stream-filter.svg)](https://gemnasium.com/github.com/sjorek/unicode-normalization-stream-filter)
 [![GitHub issues](https://img.shields.io/github/issues/sjorek/unicode-normalization-stream-filter.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/issues)
 [![3-Clause BSD License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/sjorek/unicode-normalization-stream-filter/blob/master/LICENSE)
 
