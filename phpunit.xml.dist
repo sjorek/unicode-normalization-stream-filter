@@ -20,6 +20,7 @@
          syntaxCheck="false"
          colors="auto"
          verbose="true">
+
     <testsuite>
         <directory suffix="Test.php">tests</directory>
     </testsuite>
@@ -29,4 +30,9 @@
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
+
+    <php>
+        <ini name="memory_limit" value="256M"/>
+    </php>
+
 </phpunit>
