@@ -16,6 +16,7 @@ php composer.phar require sjorek/unicode-normalization-stream-filter
 ## Example
 
 ```php
+<?php
 // Not required if the file was autoloaded (e.g. using composer)
 \Sjorek\UnicodeNormalization\StreamFilter::register();
 
@@ -34,10 +35,11 @@ stream_copy_to_stream($in_file, $out_file);
 ## Usage
 
 ```php
+<?php
 /**
- * resource   $stream`        The stream to filter.
- * string     $form`          The form to normalize unicode to.
- * int        $read_write`    See http://php.net/manual/en/function.stream-filter-append.php
+ * resource   `$stream`        The stream to filter.
+ * string     `$form`          The form to normalize unicode to.
+ * int        `$read_write`    See http://php.net/manual/en/function.stream-filter-append.php
  */
 stream_filter_append($stream, "convert.unicode-normalization.$form", $read_write);
 ```
