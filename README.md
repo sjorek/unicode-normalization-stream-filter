@@ -37,9 +37,10 @@ stream_copy_to_stream($in_file, $out_file);
 ```php
 <?php
 /**
- * resource   `$stream`        The stream to filter.
- * string     `$form`          The form to normalize unicode to.
- * int        `$read_write`    See http://php.net/manual/en/function.stream-filter-append.php
+ * resource   $stream        The stream to filter.
+ * string     $form          The form to normalize unicode to.
+ * int        $read_write    STREAM_FILTER_* constants to override the filter injection point
+ * @link http://php.net/manual/en/function.stream-filter-append.php
  */
 stream_filter_append($stream, "convert.unicode-normalization.$form", $read_write);
 ```
