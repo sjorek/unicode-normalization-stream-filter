@@ -3,7 +3,8 @@ php:
 - '7.0'
 - '7.1'
 - '7.2'
-script: vendor/bin/phpunit -v
+script:
+- composer test
 sudo: false
 install:
 - composer install
