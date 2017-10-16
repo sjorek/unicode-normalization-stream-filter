@@ -41,10 +41,13 @@
 		"patchwork/utf8" : "This stream filter can use the php-based Normalizer-implementation from 'patchwork/utf8' package to provide unicode-normalization, but 'intl'-extensions' native implementation is preferred"
 	},
 	"scripts": {
-		"build": "php-cs-fixer fix",
-		"test": "phpunit -v",
-		"test-quick": "phpunit -v --exclude-group",
-		"test-large": "phpunit -v --group=large",
-		"update-unicode-normalization-test-fixtures": "php build/scripts/updateUnicodeNormalizationTestFixtures.php"
+		"unicode-normalization-stream-filter:build": "composer unicode-normalization-stream-filter:cs-lint && composer unicode-normalization-stream-filter:test",
+		"unicode-normalization-stream-filter:test": "phpunit -v --exclude-group=large",
+		"unicode-normalization-stream-filter:test-all": "phpunit -v",
+		"unicode-normalization-stream-filter:test-large": "phpunit -v --group=large",
+		"unicode-normalization-stream-filter:test-coverage": "phpunit -v --coverage-html coverage",
+		"unicode-normalization-stream-filter:cs-lint": "php-cs-fixer fix --diff --stop-on-violation --verbose --dry-run",
+		"unicode-normalization-stream-filter:cs-fix": "php-cs-fixer fix -vv || true",
+		"unicode-normalization-stream-filter:update-test-fixtures": "php build/scripts/updateUnicodeNormalizationTestFixtures.php"
 	}
 }
