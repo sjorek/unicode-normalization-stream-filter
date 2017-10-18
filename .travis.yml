@@ -10,8 +10,9 @@ php:
 - nightly
 
 env:
-- USE_SYMFONY_POLYFILL_INTL_NORMALIZER=true
-- USE_PATCHWORK_UTF8_NORMALIZER=true
+- UNICODE_NORMALIZER_IMPLEMENTATION=Normalizer
+- UNICODE_NORMALIZER_IMPLEMENTATION=Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer
+- UNICODE_NORMALIZER_IMPLEMENTATION=Patchwork\\PHP\\Shim\\Normalizer
 
 matrix:
   fast_finish: true
@@ -38,16 +39,6 @@ install:
     composer validate;
   fi
 - travis_retry composer install --no-interaction
-- if [[ $USE_SYMFONY_POLYFILL_INTL_NORMALIZER = true ]]; then
-    phpenv config-rm intl.ini || true;
-    composer require symfony/polyfill-intl-normalizer;
-    composer validate;
-  fi
-- if [[ $USE_PATCHWORK_UTF8_NORMALIZER = true ]]; then
-    phpenv config-rm intl.ini || true;
-    composer require patchwork/utf8;
-    composer validate;
-  fi
 - travis_retry composer dump-autoload --optimize
 
 script:
