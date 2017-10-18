@@ -216,15 +216,15 @@ class StreamFilter extends \php_user_filter
     protected function normalize($input)
     {
         $result = null;
-        if ($this->form === \Normalizer::NONE) {
+        if ($this->form === Normalizer::NONE) {
             return $input;
         } elseif ($this->form === self::NFD_MAC) {
-            $result = \Normalizer::normalize($input, \Normalizer::NFD);
+            $result = Normalizer::normalize($input, Normalizer::NFD);
             if ($result !== null && $result !== false) {
                 $result = iconv('utf-8', 'utf-8-mac', $result);
             }
         } else {
-            $result = \Normalizer::normalize($input, $this->form);
+            $result = Normalizer::normalize($input, $this->form);
         }
 
         return ($result === null) ? false : $result;
@@ -268,34 +268,34 @@ class StreamFilter extends \php_user_filter
             if (static::normalizerIsAvailable()) {
                 static::$forms = array(
                     // NONE
-                    'none' => \Normalizer::NONE,
-                    'binary' => \Normalizer::NONE,
-                    'default' => \Normalizer::NONE,
-                    'validate' => \Normalizer::NONE,
+                    'none' => Normalizer::NONE,
+                    'binary' => Normalizer::NONE,
+                    'default' => Normalizer::NONE,
+                    'validate' => Normalizer::NONE,
                     // NFD
-                    'd' => \Normalizer::NFD,
-                    'nfd' => \Normalizer::NFD,
-                    'form-d' => \Normalizer::NFD,
-                    'decompose' => \Normalizer::NFD,
-                    'collation' => \Normalizer::NFD,
+                    'd' => Normalizer::NFD,
+                    'nfd' => Normalizer::NFD,
+                    'form-d' => Normalizer::NFD,
+                    'decompose' => Normalizer::NFD,
+                    'collation' => Normalizer::NFD,
                     // NFKD
-                    'kd' => \Normalizer::NFKD,
-                    'nfkd' => \Normalizer::NFKD,
-                    'form-kd' => \Normalizer::NFKD,
+                    'kd' => Normalizer::NFKD,
+                    'nfkd' => Normalizer::NFKD,
+                    'form-kd' => Normalizer::NFKD,
                     // NFC
-                    'c' => \Normalizer::NFC,
-                    'nfc' => \Normalizer::NFC,
-                    'form-c' => \Normalizer::NFC,
-                    'form_c' => \Normalizer::NFC,
-                    'html5' => \Normalizer::NFC,
-                    'legacy' => \Normalizer::NFC,
-                    'compose' => \Normalizer::NFC,
-                    'recompose' => \Normalizer::NFC,
+                    'c' => Normalizer::NFC,
+                    'nfc' => Normalizer::NFC,
+                    'form-c' => Normalizer::NFC,
+                    'form_c' => Normalizer::NFC,
+                    'html5' => Normalizer::NFC,
+                    'legacy' => Normalizer::NFC,
+                    'compose' => Normalizer::NFC,
+                    'recompose' => Normalizer::NFC,
                     // NFKC
-                    'kc' => \Normalizer::NFKC,
-                    'nfkc' => \Normalizer::NFKC,
-                    'form-kc' => \Normalizer::NFKC,
-                    'matching' => \Normalizer::NFKC,
+                    'kc' => Normalizer::NFKC,
+                    'nfkc' => Normalizer::NFKC,
+                    'form-kc' => Normalizer::NFKC,
+                    'matching' => Normalizer::NFKC,
                 );
                 if (static::macIconvIsAvailable()) {
                     static::$forms = array_merge(
@@ -327,7 +327,7 @@ class StreamFilter extends \php_user_filter
      */
     protected static function normalizerIsAvailable()
     {
-        return class_exists('Normalizer', true);
+        return class_exists('Sjorek\\UnicodeNormalization\\Normalizer', true);
     }
 
     /**

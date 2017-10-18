@@ -494,9 +494,9 @@ class StreamFilterTest extends TestCase
      * @runInSeparateProcess
      * @dataProvider provideCheckFilterConformanceData
      *
-     * @param string                                  $unicodeVersion
-     * @param int                                     $form
-     * @param Fixtures\UnicodeNormalizationTestReader $fileIterator
+     * @param string                         $unicodeVersion
+     * @param int                            $form
+     * @param UnicodeNormalizationTestReader $fileIterator
      */
     public function checkFilterConformance(
         $unicodeVersion,
@@ -745,7 +745,9 @@ class StreamFilterTest extends TestCase
     protected function markTestSkippedIfNormalizerIsNotAvailable()
     {
         if (!$this->callProtectedMethod(StreamFilter::class, 'normalizerIsAvailable')) {
-            $this->markTestSkipped('Skipped test as "\Normalizer" class is not available.');
+            $this->markTestSkipped(
+                'Skipped test as "Sjorek\\UnicodeNormalization\\Normalizer" class is not available.'
+            );
         }
     }
 
