@@ -3,7 +3,19 @@ language: php
 git:
   depth: 2
 
+php:
+- 7.0
+- 7.1
+- 7.2
+- nightly
+
+env:
+- USE_INTL_NORMALIZER=true
+- USE_SYMFONY_POLYFILL_INTL_NORMALIZER=true
+- USE_PATCHWORK_UTF8_NORMALIZER=true
+
 matrix:
+  fast_finish: true
   include:
     - php: 7.0
     - php: 7.1
@@ -11,7 +23,6 @@ matrix:
     - php: 7.2
     - php: nightly
       env: NIGHTLY=true
-  fast_finish: true
   allow_failures:
     - php: nightly
 
@@ -28,10 +39,20 @@ install:
     composer validate;
   fi
 - travis_retry composer install --no-interaction
+- if [[ $USE_SYMFONY_POLYFILL_INTL_NORMALIZER = true ]]; then
+    phpenv config-rm intl.ini || true;
+    composer require symfony/polyfill-intl-normalizer;
+    composer validate;
+  fi
+- if [[ $USE_PATCHWORK_UTF8_NORMALIZER = true ]]; then
+    phpenv config-rm intl.ini || true;
+    composer require patchwork/utf8;
+    composer validate;
+  fi
 - travis_retry composer dump-autoload --optimize
 
 script:
-- if [[ $LINT = true ]]; then
+- if [[ $LINT = true ]] && [[ $USE_INTL_NORMALIZER = true ]]; then
     composer validate;
     composer unicode-normalization-stream-filter:cs-lint;
   fi
