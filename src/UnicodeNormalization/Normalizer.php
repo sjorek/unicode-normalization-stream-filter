@@ -11,7 +11,7 @@
 
 namespace Sjorek\UnicodeNormalization;
 
-if (getenv('UNICODE_NORMALIZER_IMPLEMENTATION') !== false) {
+if (!in_array(getenv('UNICODE_NORMALIZER_IMPLEMENTATION'), array(false, 'Normalizer'), true)) {
     class_alias(getenv('UNICODE_NORMALIZER_IMPLEMENTATION'), __NAMESPACE__ . '\\Normalizer', true);
 } elseif (class_exists('Normalizer', true)) {
     // class_alias only works for user defined classes
