@@ -23,7 +23,11 @@
 	],
 	"autoload" : {
 		"psr-4" : {
-			"Sjorek\\UnicodeNormalization\\" : "src/UnicodeNormalization",
+			"Sjorek\\UnicodeNormalization\\" : "src/UnicodeNormalization"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
 			"Sjorek\\UnicodeNormalization\\Tests\\" : "tests/UnicodeNormalization/Tests"
 		}
 	},
