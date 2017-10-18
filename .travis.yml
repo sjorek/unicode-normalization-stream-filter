@@ -10,7 +10,6 @@ php:
 - nightly
 
 env:
-- USE_INTL_NORMALIZER=true
 - USE_SYMFONY_POLYFILL_INTL_NORMALIZER=true
 - USE_PATCHWORK_UTF8_NORMALIZER=true
 
@@ -52,7 +51,7 @@ install:
 - travis_retry composer dump-autoload --optimize
 
 script:
-- if [[ $LINT = true ]] && [[ $USE_INTL_NORMALIZER = true ]]; then
+- if [[ $LINT = true ]]; then
     composer validate;
     composer unicode-normalization-stream-filter:cs-lint;
   fi
