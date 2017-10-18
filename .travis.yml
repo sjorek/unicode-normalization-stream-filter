@@ -4,7 +4,6 @@ git:
   depth: 2
 
 matrix:
-  fast_finish: true
   include:
     - php: 7.0
       env: UNICODE_NORMALIZER_IMPLEMENTATION=Normalizer
