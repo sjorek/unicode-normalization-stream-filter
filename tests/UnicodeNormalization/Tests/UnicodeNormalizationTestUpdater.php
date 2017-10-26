@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Unicode Normalization Stream Filter.
+ * This file is part of the Unicode Normalization Stream Filter project.
  *
  * (c) Stephan Jorek <stephan.jorek@gmail.com>
  *
