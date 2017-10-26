@@ -1,6 +1,6 @@
 # [Unicode-Normalization Stream-Filter](https://sjorek.github.io/unicode-normalization-stream-filter/)
 
-A [composer](http://getcomposer.org)-package providing a unicode-normalization stream-filter.
+A [composer](http://getcomposer.org)-package providing a stream filter to normalize unicode, currently only utf8.
 
 
 ## Installation
