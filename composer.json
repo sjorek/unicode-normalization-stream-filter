@@ -35,12 +35,13 @@
 		"php" : ">=7.0"
 	},
 	"require-dev" : {
-		"friendsofphp/php-cs-fixer" : "^2.7",
-		"phpunit/phpunit" : "^6.4",
-		"ext-intl" : "*",
-		"ext-iconv" : "*",
-		"symfony/polyfill-intl-normalizer": "*",
-		"patchwork/utf8": "*"
+		"ext-iconv": "*",
+		"ext-intl": "*",
+		"friendsofphp/php-cs-fixer": "^2.7",
+		"patchwork/utf8": "*",
+		"phpunit/phpunit": "^6.4",
+		"sensiolabs/security-checker": "^4.1",
+		"symfony/polyfill-intl-normalizer": "*"
 	},
 	"suggest" : {
 		"ext-intl" : "This stream filter can use 'intl'-extension's native Normalizer-implementation to provide unicode-normalization in preference of the suggested php-based 'symfony/polyfill-intl-normalizer' or 'patchwork/utf8'package",
@@ -50,6 +51,7 @@
 	},
 	"scripts": {
 		"unicode-normalization-stream-filter:build": [
+			"@unicode-normalization-stream-filter:security-check",
 			"@unicode-normalization-stream-filter:cs-lint",
 			"@unicode-normalization-stream-filter:test"
 		],
@@ -59,6 +61,9 @@
 		"unicode-normalization-stream-filter:test-coverage": "phpunit -v --coverage-html coverage",
 		"unicode-normalization-stream-filter:cs-lint": "php-cs-fixer fix --diff --stop-on-violation --verbose --dry-run",
 		"unicode-normalization-stream-filter:cs-fix": "php-cs-fixer fix -vv || true",
+	        "unicode-normalization-stream-filter:security-check": [
+        	    "security-checker security:check --ansi"
+	        ],
 		"unicode-normalization-stream-filter:update-test-fixtures": "@php build/scripts/updateUnicodeNormalizationTestFixtures.php"
 	}
 }

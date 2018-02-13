@@ -12,7 +12,7 @@ matrix:
     - php: 7.0
       env: UNICODE_NORMALIZER_IMPLEMENTATION=Patchwork\\PHP\\Shim\\Normalizer
     - php: 7.1
-      env: LINT=true UNICODE_NORMALIZER_IMPLEMENTATION=Normalizer
+      env: LINT=true SECURITY_CHECK=true UNICODE_NORMALIZER_IMPLEMENTATION=Normalizer
     - php: 7.1
       env: UNICODE_NORMALIZER_IMPLEMENTATION=Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer
     - php: 7.1
@@ -56,6 +56,9 @@ script:
     composer unicode-normalization-stream-filter:test-all;
   else
     composer unicode-normalization-stream-filter:test;
+  fi
+- if [[ $CHECK_SECURITY = true ]]; then
+    composer -v unicode-normalization-stream-filter:security-check;
   fi
 
 sudo: false
