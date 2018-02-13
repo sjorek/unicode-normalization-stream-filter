@@ -57,7 +57,6 @@ Look at the [contribution guidelines](CONTRIBUTING.md)
 ### Status
 
 [![Build Status](https://img.shields.io/travis/sjorek/unicode-normalization-stream-filter.svg)](https://travis-ci.org/sjorek/unicode-normalization-stream-filter)
-[![Dependency Status](https://img.shields.io/gemnasium/sjorek/unicode-normalization-stream-filter.svg)](https://gemnasium.com/github.com/sjorek/unicode-normalization-stream-filter)
 
 
 ### GitHub
