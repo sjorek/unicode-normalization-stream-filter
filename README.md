@@ -1,5 +1,7 @@
 # [Unicode-Normalization Stream-Filter](https://sjorek.github.io/unicode-normalization-stream-filter/)
 
+**ATTENTION:** *This package has been replaced by the [Unicode-Normalization](https://sjorek.github.io/unicode-normalization/) package!*
+
 A [composer](http://getcomposer.org)-package providing a stream filter to normalize unicode, currently only utf8.
 
 
